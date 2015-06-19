@@ -94,8 +94,9 @@
         [allChanges unionSet:changes[NSDeletedObjectsKey]];
         
         for (NSManagedObjectID *objID in allChanges) {
-            // do whatever you need to with the NSManagedObjectID
-            // you can retrieve the object from with [moc objectWithID:objID]
+            if([self.delegate respondsToSelector:@selector(ubiquitousStoreObjectDidChange:)]) {
+                [self.delegate ubiquitousStoreObjectDidChange:objID];
+            }
         }
 
     }];
